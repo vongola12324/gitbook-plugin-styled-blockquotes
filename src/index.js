@@ -12,13 +12,22 @@ const getStyleName = $blockquote => {
 
   return $strong.text().toLowerCase()
 }
-const getStyleOption = styleName => styleOptions[styleName]
+const getStyleOption = styleName => {
+  let fontFamily = "fa4"
+  if (this.options.pluginsConfig && this.options.pluginsConfig.styledBlockQuotes) {
+    let config = this.options.pluginsConfig.styledBlockQuotes
+    if (config['fontFamily'] && Object.keys(styleOptions).indexOf(config['fontFamily'])) {
+      fontFamily = config['fontFamily']
+    }
+  }
+  return styleOptions[fontFamily][styleName]
+}
 
 const getIconHtml = icon => {
   if (!icon) {
     return ''
   }
-  return `<div class="hints-icon"><i class="fa ${icon}"></i></div>`
+  return `<div class="hints-icon"><i class="${icon}"></i></div>`
 }
 const generateBlockquoteHtml = ({ style, icon = '', content }) => {
   const iconHtml = getIconHtml(icon)
