@@ -1,5 +1,6 @@
 import { styleOptions } from './styleOptions'
 var cheerio = require('cheerio')
+let selectedFontFamily = "fa4";
 
 const getStyleName = $blockquote => {
   const $strong = $blockquote.find('p:first-child > strong:first-child')
@@ -12,16 +13,7 @@ const getStyleName = $blockquote => {
 
   return $strong.text().toLowerCase()
 }
-const getStyleOption = styleName => {
-  let fontFamily = "fa4"
-  if (this.options.pluginsConfig && this.options.pluginsConfig.styledBlockQuotes) {
-    let config = this.options.pluginsConfig.styledBlockQuotes
-    if (config['fontFamily'] && Object.keys(styleOptions).indexOf(config['fontFamily'])) {
-      fontFamily = config['fontFamily']
-    }
-  }
-  return styleOptions[fontFamily][styleName]
-}
+const getStyleOption = styleName => styleOptions[selectedFontFamily][styleName]
 
 const getIconHtml = icon => {
   if (!icon) {
@@ -44,6 +36,9 @@ module.exports = {
     css: ['plugin-styled-blockquotes.css']
   },
   hooks: {
+    init: () => {
+      selectedFontFamily = config.get(pluginsConfig.styledBlockQuotes.fontFamily, "fa4")
+    },
     page: page => {
       const $ = cheerio.load(page.content)
 
