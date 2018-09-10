@@ -30,14 +30,33 @@ const generateBlockquoteHtml = ({ style, icon = '', content }) => {
     `</div>`
   )
 }
-module.exports = {
-  book: {
+
+const getAssets = function() {
+  let cssList = ['plugin-styled-blockquotes.css'];
+  let jsList = [];
+
+  let customFontCSS = this.config.get('pluginsConfig.styledBlockQuotes.fontCSS');
+  if (customFontCSS) {
+    cssList.push(customFontCSS)
+  }
+  let customFontJS = this.config.get('pluginsConfig.styledBlockQuotes.fontJS');
+  if (customFontJS) {
+    jsList.push(customFontJS)
+  }
+
+  return {
     assets: './assets',
-    css: ['plugin-styled-blockquotes.css']
-  },
+    css: cssList,
+    js: jsList
+  }
+}
+
+module.exports = {
+  website: getAssets,
+  book: getAssets,
   hooks: {
-    init: () => {
-      selectedFontFamily = config.get(pluginsConfig.styledBlockQuotes.fontFamily, "fa4")
+    init: function () {
+      selectedFontFamily = this.config.get('pluginsConfig.styledBlockQuotes.fontFamily', "fa4")
     },
     page: page => {
       const $ = cheerio.load(page.content)

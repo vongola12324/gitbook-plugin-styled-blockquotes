@@ -12,6 +12,20 @@ Add the below to your `book.json` file, then run `gitbook install` :
 }
 ```
 
+## Configuration
+The default font is "Font Awesome 4".  
+If you want to use "Font Awesome 5" as icon font, add the below to your `book.json`:  
+
+```json
+// Font Awesome 5
+"pluginsConfig": {
+  "styledBlockQuotes": {
+    "fontFamily": "fa5",
+    "fontCSS": "https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+  }
+}
+```
+
 ## Usage
 
 It is highly recommended that you check out our [Examples](https://jim-moody.github.io/gitbook-plugin-styled-blockquotes) gitbook to see clear examples of how to use this plugin. If you _really_ don't want to click on that link, you can check out this basic example below :smile:
